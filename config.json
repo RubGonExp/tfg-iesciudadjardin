@@ -1,0 +1,14 @@
+{
+    "params":{
+
+        "PASSWORD":"12345",
+        "PUBLIC_IP_ADDRESS":"35.226.209.40:3306",
+        "DBNAME":"codingthunder",
+        "PROJECT_ID": "axial-radius-337205",
+        "INSTANCE_NAME":"codingthunder",
+        "local_server":"True",
+        "dev_uri":"mysql://root:@localhost/codingthunder",
+        "prod_uri":"mysql://root:@localhost/codingthunder"
+
+    }
+}
