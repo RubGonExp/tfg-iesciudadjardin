@@ -3,25 +3,26 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import json
 
-
-
-with open('config.json','r') as c:
+with open('config.json', 'r') as c:
     params = json.load(c)["params"]
 
-local_server = True
+local_server = params["local_server"]
 db = SQLAlchemy()
 
-app = Flask(__name__,template_folder='template')
-if(local_server==True):
-    #Replace the ip_address and cloud instance and db name accordingly.
-    app.config["SQLALCHEMY_DATABASE_URI"]= "mysql+mysqldb://root:123456@10.54.192.3:3306/rubentfg?unix_socket=/cloudsql/tfg-ruben-ies-ciudad-jardin-02:us-central1:rubentfg"
+app = Flask(__name__, template_folder='template')
 
-    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"]=True
+if local_server:
+    app.config["SQLALCHEMY_DATABASE_URI"] = params["dev_uri"]
 else:
-    app.config['SQLALCHEMY_DATABASE_URI'] = params["prod_uri"]
+    private_ip_address = params["PRIVATE_IP_ADDRESS"]
+    dbname = params["DBNAME"]
+    project_id = params["PROJECT_ID"]
+    instance_name = params["INSTANCE_NAME"]
+    password = params["PASSWORD"]
+
+    app.config["SQLALCHEMY_DATABASE_URI"] = f"mysql+mysqldb://root:{password}@{private_ip_address}/{dbname}?unix_socket=/cloudsql/{project_id}:{instance_name}"
 
 db.init_app(app)
-
 
 class Contacts(db.Model):
     sno = db.Column(db.Integer, primary_key=True)
