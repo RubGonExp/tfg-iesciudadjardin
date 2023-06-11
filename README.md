@@ -4,7 +4,7 @@ El proyecto implementa una aplicación Flask de muestra en GCP con la integraci�
 servicios de Google Cloud como GCE, Cloud SQL, balanceador de carga y Cloud NAT.
 Aquí están los archivos necesarios para la página web que se mostrará y el acceso a la BD.
 
-![Architecture](architecture.png)
+![Architecture](architecture.jpg)
 
 Los servicios que se utilizan
 1. VM Setup
