@@ -4,23 +4,19 @@ from datetime import datetime
 import json
 
 with open('config.json', 'r') as c:
-    params = json.load(c)["params"]
+	params = json.load(c)["params"]
 
-local_server = params["local_server"]
+local_server = True
 db = SQLAlchemy()
 
-app = Flask(__name__, template_folder='template')
+app = Flask(__name__,template_folder='template')
+if(local_server==True):
+	#Replace the ip_address and cloud instance and db name accordingly.
+	app.config["SQLALCHEMY_DATABASE_URI"]= "mysql+mysqldb://ruben:123456@10.54.192.3:3306/rubentfg?unix_socket=/cloudsql/tfg-ruben-ies-ciudad-jardin-02:us-central1:rubentfg"
 
-if local_server:
-    app.config["SQLALCHEMY_DATABASE_URI"] = params["dev_uri"]
+	app.config["SQLALCHEMY_TRACK_MODIFICATIONS"]=True
 else:
-    private_ip_address = params["PRIVATE_IP_ADDRESS"]
-    dbname = params["DBNAME"]
-    project_id = params["PROJECT_ID"]
-    instance_name = params["INSTANCE_NAME"]
-    password = params["PASSWORD"]
-
-    app.config["SQLALCHEMY_DATABASE_URI"] = f"mysql+mysqldb://root:{password}@{private_ip_address}/{dbname}"
+	app.config['SQLALCHEMY_DATABASE_URI'] = params["prod_uri"]
 
 db.init_app(app)
 
