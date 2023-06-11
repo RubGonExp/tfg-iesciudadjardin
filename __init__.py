@@ -20,7 +20,7 @@ else:
     instance_name = params["INSTANCE_NAME"]
     password = params["PASSWORD"]
 
-    app.config["SQLALCHEMY_DATABASE_URI"] = f"mysql+mysqldb://root:{password}@{private_ip_address}/{dbname}?unix_socket=/cloudsql/{project_id}:{instance_name}"
+    app.config["SQLALCHEMY_DATABASE_URI"] = f"mysql+mysqldb://root:{password}@{private_ip_address}/{dbname}"
 
 db.init_app(app)
 
