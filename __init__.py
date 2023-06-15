@@ -11,7 +11,6 @@ db = SQLAlchemy()
 
 app = Flask(__name__,template_folder='template')
 if(local_server==True):
-	#Replace the ip_address and cloud instance and db name accordingly.
 	app.config["SQLALCHEMY_DATABASE_URI"]= "mysql+mysqldb://ruben:123456@10.54.192.3:3306/rubentfg?unix_socket=/cloudsql/tfg-ruben-ies-ciudad-jardin-02:us-central1:rubentfg"
 
 	app.config["SQLALCHEMY_TRACK_MODIFICATIONS"]=True
@@ -35,7 +34,7 @@ class Posts(db.Model):
     content= db.Column(db.String(120), nullable=False)
     date = db.Column(db.DateTime)
 
-# Set up models
+# Configurar models
 
 def create_table():
     with app.app_context():
@@ -70,7 +69,7 @@ def post_route(post_slug):
     post = Posts.query.filter_by(slug=post_slug).first()
     return render_template('post.html',params=params,post=post)
     
-#After first insertion , comment out the below line
+# Tras la primera insercion, hay que comentar la linea siguiente
 create_table()
 
 if __name__ == '__main__':
