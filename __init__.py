@@ -38,7 +38,7 @@ class Posts(db.Model):
 
 def create_table():
     with app.app_context():
-        # Create the table in the database
+        # Crea la tabla en la base de datos
         db.create_all()
 
 @app.route("/")
